@@ -29,7 +29,7 @@ public class AccountServiceApplication {
                 BankAccount bankAccount1 = BankAccount.builder()
                         .accountId(UUID.randomUUID().toString())
                         .currency("EURO")
-                        .balance(1000.00)
+                        .balance(Math.random() * 1000)
                         .createAt(LocalDate.now())
                         .updateAt(LocalDate.now())
                         .type(AccounType.CURRENT_ACCOUNT)
@@ -38,34 +38,16 @@ public class AccountServiceApplication {
                 BankAccount bankAccount2 = BankAccount.builder()
                         .accountId(UUID.randomUUID().toString())
                         .currency("EURO")
-                        .balance(1002.00)
+                        .balance(Math.random() * 1000)
                         .createAt(LocalDate.now())
                         .updateAt(LocalDate.now())
                         .type(AccounType.CURRENT_ACCOUNT)
                         .customerId(c.getId())
                         .build();
-
+                accountRepository.save(bankAccount1);
+                accountRepository.save(bankAccount2);
             });
-            BankAccount bankAccount1 = BankAccount.builder()
-                    .accountId(UUID.randomUUID().toString())
-                    .currency("EURO")
-                    .balance(1000.00)
-                    .createAt(LocalDate.now())
-                    .updateAt(LocalDate.now())
-                    .customerId(Long.valueOf(1))
-                    .type(AccounType.CURRENT_ACCOUNT)
-                    .build();
-            BankAccount bankAccount2 = BankAccount.builder()
-                    .accountId(UUID.randomUUID().toString())
-                    .currency("EURO")
-                    .balance(1002.00)
-                    .createAt(LocalDate.now())
-                    .updateAt(LocalDate.now())
-                    .customerId(Long.valueOf(2))
-                    .type(AccounType.CURRENT_ACCOUNT)
-                    .build();
-            accountRepository.save(bankAccount1);
-            accountRepository.save(bankAccount2);
+
         };
     }
 }
