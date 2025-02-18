@@ -3,7 +3,9 @@ package materialstech.com.accountsrevice.web;
 
 import materialstech.com.accountsrevice.client.CustomerRestClient;
 import materialstech.com.accountsrevice.entities.BankAccount;
+import materialstech.com.accountsrevice.model.Customer;
 import materialstech.com.accountsrevice.repository.BankAccountRepository;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,8 +14,9 @@ import java.util.List;
 
 @RestController
 public class AccountRestController {
-    private BankAccountRepository accountRepository;
+    private final BankAccountRepository accountRepository;
     private CustomerRestClient customerRestClient;
+
 
     public AccountRestController(BankAccountRepository accountRepository, CustomerRestClient customerRestClient) {
         this.accountRepository = accountRepository;
@@ -25,6 +28,9 @@ public class AccountRestController {
     }
     @GetMapping("/api/accounts/{id}")
     public BankAccount accountById(@PathVariable String id){
-        return accountRepository.findById(id).get();
+         BankAccount bankAccount = accountRepository.findById(id).get();
+         Customer customer = customerRestClient.findCustomerById(bankAccount.getCustomerId());
+         bankAccount.setCustomer(customer);
+         return bankAccount;
     }
 }
