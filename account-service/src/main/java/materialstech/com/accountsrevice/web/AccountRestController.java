@@ -1,6 +1,7 @@
 package materialstech.com.accountsrevice.web;
 
 
+import materialstech.com.accountsrevice.client.CustomerRestClient;
 import materialstech.com.accountsrevice.entities.BankAccount;
 import materialstech.com.accountsrevice.repository.BankAccountRepository;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +13,11 @@ import java.util.List;
 @RestController
 public class AccountRestController {
     private BankAccountRepository accountRepository;
+    private CustomerRestClient customerRestClient;
 
-    public AccountRestController(BankAccountRepository accountRepository) {
+    public AccountRestController(BankAccountRepository accountRepository, CustomerRestClient customerRestClient) {
         this.accountRepository = accountRepository;
+        this.customerRestClient = customerRestClient;
     }
     @GetMapping("/api/accounts")
     public List<BankAccount> accountList(){
